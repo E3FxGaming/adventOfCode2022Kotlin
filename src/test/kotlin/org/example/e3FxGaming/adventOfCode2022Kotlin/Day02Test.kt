@@ -7,20 +7,20 @@ import org.junit.jupiter.params.provider.MethodSource
 import java.io.File
 import java.util.stream.Stream
 
-internal class Day01Test {
+internal class Day02Test {
 
     companion object {
         @JvmStatic
         fun argumentsProvider(): Stream<Arguments> = Stream.of(
-            Arguments.of(Day01Test::class.java.getResource("/input/day01.txt").toFile(), 24000, 45000)
+            Arguments.of(Day02Test::class.java.getResource("/input/day02.txt").toFile(), 15, 12)
         )
     }
 
     @ParameterizedTest
     @MethodSource("argumentsProvider")
-    fun day01(inputFile: File, part1: Int, part2: Int) {
-        val day01 = Day01(inputFile)
-        assertEquals(part1, day01.part1(), "Part 1")
-        assertEquals(part2, day01.part2(), "Part 2")
+    fun day02(inputFile: File, part1: Int, part2: Int) {
+        val day02 = Day02(inputFile)
+        assertEquals(part1, day02.part1(), "Part 1")
+        assertEquals(part2, day02.part2(), "Part 2")
     }
 }
