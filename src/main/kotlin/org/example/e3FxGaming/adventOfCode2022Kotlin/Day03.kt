@@ -3,31 +3,30 @@ package org.example.e3FxGaming.adventOfCode2022Kotlin
 import java.io.File
 
 class Day03(override val inputFile: File) : Day {
-    private val rucksackData = inputFile.readLines().map {
-        val splitAt = it.length / 2
-        it.substring(0, splitAt) to it.substring(splitAt)
-    }
+    private val rucksackData = inputFile.readLines()
 
-    private val priorities = buildMap<Char, Int> {
-        for(c in 'a'..'z')
+    private val priorities: Map<Char, Int> = buildMap {
+        for (c in 'a'..'z')
             set(c, c - 'a' + 1)
 
-        for(c in 'A'..'Z')
+        for (c in 'A'..'Z')
             set(c, c - 'A' + 27)
     }
 
     override fun part1(): Int =
         rucksackData.sumOf {
-            priorities.getValue(it.first.toSet().intersect(it.second.toSet()).first())
+            val splitAt = it.length / 2
+            val commonChar = it.take(splitAt).toSet()
+                .intersect(it.substring(splitAt).toSet()).first()
+            priorities.getValue(commonChar)
         }
 
     override fun part2(): Int =
-        rucksackData.windowed(3,3).sumOf { group ->
-            group.map {
-                it.first.toSet() + it.second.toSet()
-            }.reduce { acc, chars ->
-                acc.intersect(chars)
-            }.first().let { priorities.getValue(it) }
+        rucksackData.windowed(3, 3).sumOf { group ->
+            group.map(String::toSet)
+                .reduce(Set<Char>::intersect)
+                .first()
+                .let(priorities::getValue)
         }
 }
 
