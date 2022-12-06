@@ -1,9 +1,9 @@
 package org.example.e3FxGaming.adventOfCode2022Kotlin
 
-import java.io.File
+import java.io.Reader
 import java.util.LinkedList
 
-class Day05(override val inputFile: File) : Day {
+class Day05(override val inputReader: Reader) : Day {
     private val cratesConfig: List<List<Char>>
     private val instructions: List<Triple<Int, Int, Int>>
 
@@ -14,7 +14,7 @@ class Day05(override val inputFile: File) : Day {
 
         val instructionRegex = "^move (\\d+) from (\\d+) to (\\d+)\$".toRegex()
 
-        inputFile.readLines().forEach { line ->
+        inputReader.closingReadLines().forEach { line ->
             when {
                 line.isBlank() -> cratesRead = true //switch from crate mode to instruction mode
                 !cratesRead -> { //parse crate line
@@ -80,8 +80,8 @@ class Day05(override val inputFile: File) : Day {
 }
 
 fun main() {
-    val inputFile = Day05::class.java.getResource("/input/day05.txt").toFile()
-    Day05(inputFile).let {
+    val inputReader = Day05::class.java.getResource("/input/day05.txt").toReader()
+    Day05(inputReader).let {
         println(it.part1())
         println(it.part2())
     }

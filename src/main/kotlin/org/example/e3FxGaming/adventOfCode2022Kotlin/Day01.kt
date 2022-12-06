@@ -1,9 +1,9 @@
 package org.example.e3FxGaming.adventOfCode2022Kotlin
 
-import java.io.File
+import java.io.Reader
 
-class Day01(override val inputFile: File) : Day {
-    private val elfCalories = inputFile.readText().trim()
+class Day01(override val inputReader: Reader) : Day {
+    private val elfCalories = inputReader.closingReadText().trim()
         .split(System.lineSeparator().repeat(2))
         .map { elf ->
             elf.split(System.lineSeparator()).map(String::toInt).sum()
@@ -15,8 +15,8 @@ class Day01(override val inputFile: File) : Day {
 }
 
 fun main() {
-    val inputFile = Day01::class.java.getResource("/input/day01.txt").toFile()
-    Day01(inputFile).let {
+    val inputReader = Day01::class.java.getResource("/input/day01.txt").toReader()
+    Day01(inputReader).let {
         println(it.part1())
         println(it.part2())
     }

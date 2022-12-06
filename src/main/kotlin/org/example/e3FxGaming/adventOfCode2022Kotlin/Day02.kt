@@ -1,9 +1,8 @@
 package org.example.e3FxGaming.adventOfCode2022Kotlin
 
-import java.io.File
-import java.lang.IllegalStateException
+import java.io.Reader
 
-class Day02(override val inputFile: File) : Day {
+class Day02(override val inputReader: Reader) : Day {
     private val charToHandsign = mutableMapOf(
         'A' to Handsign.ROCK,
         'B' to Handsign.PAPER,
@@ -13,7 +12,7 @@ class Day02(override val inputFile: File) : Day {
         'Z' to Handsign.SCISSORS
     )
 
-    private val games = inputFile.readLines().map { line ->
+    private val games = inputReader.closingReadLines().map { line ->
         line.split(' ')
             .let { charToHandsign.getValue(it.component1().first()) to it.component2().first() }
     }
@@ -79,8 +78,8 @@ class Day02(override val inputFile: File) : Day {
 }
 
 fun main() {
-    val inputFile = Day02::class.java.getResource("/input/day02.txt").toFile()
-    Day02(inputFile).let {
+    val inputReader = Day02::class.java.getResource("/input/day02.txt").toReader()
+    Day02(inputReader).let {
         println(it.part1())
         println(it.part2())
     }

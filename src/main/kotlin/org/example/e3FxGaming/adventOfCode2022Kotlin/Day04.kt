@@ -1,10 +1,10 @@
 package org.example.e3FxGaming.adventOfCode2022Kotlin
 
-import java.io.File
+import java.io.Reader
 
-class Day04(override val inputFile: File) : Day {
-    private val elfPairings = inputFile
-        .readLines()
+class Day04(override val inputReader: Reader) : Day {
+    private val elfPairings = inputReader
+        .closingReadLines()
         .map { line ->
             line.split(',').map { elfAssignment ->
                 elfAssignment.split('-')
@@ -34,8 +34,8 @@ class Day04(override val inputFile: File) : Day {
 }
 
 fun main() {
-    val inputFile = Day04::class.java.getResource("/input/day04.txt").toFile()
-    Day04(inputFile).let {
+    val inputReader = Day04::class.java.getResource("/input/day04.txt").toReader()
+    Day04(inputReader).let {
         println(it.part1())
         println(it.part2())
     }

@@ -1,9 +1,9 @@
 package org.example.e3FxGaming.adventOfCode2022Kotlin
 
-import java.io.File
+import java.io.Reader
 
 interface Day {
-    val inputFile: File
+    val inputReader: Reader
 
     fun part1(): Any
     fun part2(): Any

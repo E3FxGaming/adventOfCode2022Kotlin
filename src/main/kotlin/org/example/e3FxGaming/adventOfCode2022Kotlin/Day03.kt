@@ -1,9 +1,9 @@
 package org.example.e3FxGaming.adventOfCode2022Kotlin
 
-import java.io.File
+import java.io.Reader
 
-class Day03(override val inputFile: File) : Day {
-    private val rucksackData = inputFile.readLines()
+class Day03(override val inputReader: Reader) : Day {
+    private val rucksackData = inputReader.closingReadLines()
 
     private val priorities: Map<Char, Int> = buildMap {
         for (c in 'a'..'z')
@@ -31,8 +31,8 @@ class Day03(override val inputFile: File) : Day {
 }
 
 fun main() {
-    val inputFile = Day03::class.java.getResource("/input/day03.txt").toFile()
-    Day03(inputFile).let {
+    val inputReader = Day03::class.java.getResource("/input/day03.txt").toReader()
+    Day03(inputReader).let {
         println(it.part1())
         println(it.part2())
     }
