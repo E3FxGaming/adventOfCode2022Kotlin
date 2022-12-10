@@ -11,17 +11,25 @@ internal class Day10Test {
     companion object {
         @JvmStatic
         fun argumentsProvider(): Stream<Arguments> = Stream.of(
-            Arguments.of(Day10Test::class.java.getResource("/input/day10.txt").toReader(), 13140, 1)
+            Arguments.of(Day10Test::class.java.getResource("/input/day10.txt").toReader(), 13140,
+                """
+                    ##..##..##..##..##..##..##..##..##..##..
+                    ###...###...###...###...###...###...###.
+                    ####....####....####....####....####....
+                    #####.....#####.....#####.....#####.....
+                    ######......######......######......####
+                    #######.......#######.......#######.....
+                """.trimIndent()
+                )
         )
     }
 
     @ParameterizedTest
     @MethodSource("argumentsProvider")
-    fun day10(inputReader: Reader, part1: Int, part2: Int) {
+    fun day10(inputReader: Reader, part1: Int, part2: String) {
         Day10(inputReader).let {
             assertEquals(part1, it.part1(), "Part 1")
-            it.part2()
-            //assertEquals(part2, it.part2(), "Part 2")
+            assertEquals(part2, it.part2(), "Part 2")
         }
     }
 }

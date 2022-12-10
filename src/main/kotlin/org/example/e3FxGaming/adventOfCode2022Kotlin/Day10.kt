@@ -13,24 +13,15 @@ class Day10(override val inputReader: Reader) : Day {
         }
     }
 
-    override fun part1(): Int = xRegAtTick.foldIndexed(0) { index, acc, i ->
-        val cycle = index + 1
-        if ((cycle - 20) % 40 == 0) acc + (cycle * i) else acc
-    }
+    override fun part1(): Int = (19..(xRegAtTick.lastIndex) step 40)
+        .sumOf { (it + 1) * xRegAtTick[it] }
 
-    override fun part2() {
-        val displayGrid = Array(6) { rowIndex ->
-            CharArray(40) { colIndex ->
-                val cycle = (rowIndex * 40) + colIndex + 1
-                val xReg = xRegAtTick[cycle - 1]
-                if (colIndex in (xReg - 1)..(xReg + 1)) '#' else '.'
-            }
-        }
-
-        displayGrid.joinToString("\n") {
+    override fun part2(): String =
+        xRegAtTick.take(240).mapIndexed { index, xReg ->
+            if(index % 40 in (xReg - 1)..(xReg + 1)) '#' else '.'
+        }.chunked(40).joinToString("\n") {
             it.joinToString("")
-        }.let(::println)
-    }
+        }.also(::println)
 }
 
 fun main() {
