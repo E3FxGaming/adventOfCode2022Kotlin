@@ -42,9 +42,6 @@ class Day12(override val inputReader: Reader) : Day {
             visited[startingRow][startingCol] = true
         }
 
-        val rowIndices = field.indices
-        val colIndices = field.first().indices
-
         var steps = 0
         var toDo: Set<Pair<Int, Int>> = startingToDo
 
@@ -55,9 +52,10 @@ class Day12(override val inputReader: Reader) : Day {
                 dirs.map {
                     currentRow + it.first to currentCol + it.second
                 }.filter { (newRow, newCol) ->
-                    newRow in rowIndices && newCol in colIndices
-                            && !visited[newRow][newCol]
-                            && ((currentElevationChar >= 'y' && field[newRow][newCol] == 'E') || field[newRow][newCol] in 'a'..(currentElevationChar + 1))
+                    field.getOrNull(newRow)?.getOrNull(newCol)?.let { targetChar ->
+                        !visited[newRow][newCol] &&
+                                ((currentElevationChar >= 'y' && targetChar == 'E') || targetChar in 'a'..(currentElevationChar + 1))
+                    } ?: false
                 }
             }.toSet()
                 .also {
